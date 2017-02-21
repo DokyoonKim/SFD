@@ -1,8 +1,11 @@
 package control;
 
 
+import model.Person;
 import view.LogInWindow;
 import view.MainWindow;
+import view.PageWindow;
+
 
 public class Index {
 	
@@ -15,10 +18,11 @@ public class Index {
 //		while(!logIn.getValidation()){System.out.print("");}
 //		a.dispose();
 		
+		PageWindow c = new PageWindow();
+		c.show();
+		
 		MainWindow b = new MainWindow();
 		b.show();
-		
-		
 		
 	}
 	
