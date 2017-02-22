@@ -61,6 +61,11 @@ public class LogInWindow {
 		return btnEnter;
 	}
 	
+	public JPasswordField getTxtPassWd(){
+		return txtPassWd;
+	}
+	
+	
 	
 	public String getTxtPassWdStr(){
 		return txtPassWd.getText();

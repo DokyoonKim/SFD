@@ -9,13 +9,15 @@ import view.LogInWindow;
 
 public class LogInProcess implements ActionListener {
 	
-	private LogInWindow a;
+	private LogInWindow view;
 	private boolean isValidate;
 	
-	public LogInProcess(LogInWindow input) {
+	public LogInProcess(LogInWindow inView) {
 		
-		a = input;
-		a.getBtnEnter().addActionListener(this);
+		view = inView;
+		view.getTxtPassWd().addActionListener(this);
+		view.getBtnEnter().addActionListener(this);
+		
 		isValidate = false;
 		
 	}
@@ -23,18 +25,18 @@ public class LogInProcess implements ActionListener {
 	
 	public void actionPerformed(ActionEvent e) {
 		
-		if(e.getSource().equals(a.getBtnEnter())){
+		if(e.getSource().equals(view.getBtnEnter()) || e.getSource().equals(view.getTxtPassWd()) ){
 			
 			//암호화 및 복호화 클래스랑 연결 
-			
-			if(a.getTxtPassWdStr().equals("1234")){
+			if(view.getTxtPassWdStr().equals("1234")){
 				isValidate = true;
 			}
 			else{
-				JOptionPane.showMessageDialog(a.getBtnEnter(), "Wrong password");
+				JOptionPane.showMessageDialog(view.getBtnEnter(), "Wrong password");
 			}
 			
 		}
+		
 		
 	}
 	

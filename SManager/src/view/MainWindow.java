@@ -3,6 +3,8 @@
 package view;
 
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -16,6 +18,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 
 import control.ScreenSize;
 
@@ -24,6 +27,7 @@ public class MainWindow {
 	private JFrame frame;
 	private JTextField txtDate;
 	private JTable table;
+	private JScrollPane scrollPane;
 	
 	public MainWindow(){
 		
@@ -54,7 +58,7 @@ public class MainWindow {
         table = new JTable(model);
         
         //3. 결과적으로는 JScrollPane를 추가합니다.
-        JScrollPane scrollPane = new JScrollPane(table);
+        scrollPane = new JScrollPane(table);
         
         //4. 컴포넌트에  Table 추가
         frame.getContentPane().add(northPane, "North");
@@ -74,17 +78,30 @@ public class MainWindow {
         //테이블에 데이터 추가하기
         //원본데이터를 건들지 않고 table의 매개변수인 model에 있는 데이터를 변경합니다
         DefaultTableModel m =
-                (DefaultTableModel)table.getModel();
+                new DefaultTableModel() {
+        	public boolean isCellEditable(int row, int column){
+        		return false;
+        	}
+        };
+        
+        m = (DefaultTableModel)table.getModel();
         
         //모델에 데이터 추가 , 1번째 출에 새로운 데이터를 추가합니다
         m.insertRow(m.getRowCount(), new Object[]{date, version});
-        
         
 		table.updateUI();
 		
 	}
 	
 	
+	
+	public JTable getTable(){
+		return table;
+	}
+	
+	public JTextField getTxtDate(){
+		return txtDate;
+	}
 	
 	
 	
