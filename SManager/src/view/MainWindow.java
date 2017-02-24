@@ -28,25 +28,22 @@ public class MainWindow {
 	private JTextField txtDate;
 	private JTable table;
 	private JScrollPane scrollPane;
+	private JButton btnNew;
+	
+	private String[] colTitle = {"Date"};
+	private String[][] data = {{"Empty"}};
 	
 	public MainWindow(){
 		
 		frame = new JFrame();
 		txtDate = new JTextField();
+		btnNew = new JButton("New");
 		
-		JLabel title = new JLabel(" 연월일 ex>20180101");
+		JLabel title = new JLabel("학년반번호 ex>30101");
 		frame.setSize(400, 300);
 		frame.setLocation((ScreenSize.getScreenWidth() -frame.getWidth())/2, ScreenSize.getScreenHeight()/2 - (int)(frame.getHeight()/1.5) );
 		JPanel northPane = new JPanel();
 		
-		
-		
-        String[] colTitle = {"Date","Version"};
-        String[][] data = {{"2018/03/02","00"},
-                        {"2018/03/02","01"},
-                        {"2018/03/03","01"}};
-        
-        
         
         //1. 모델과 데이터를 연결
         DefaultTableModel model = new DefaultTableModel(data,colTitle);
@@ -66,6 +63,7 @@ public class MainWindow {
         
         northPane.add(title);
         northPane.add(this.txtDate);
+        northPane.add(btnNew);
 		
 
 		
@@ -73,7 +71,7 @@ public class MainWindow {
 	
 	
 	
-	public void updateTable(String date, String version){
+	public void updateTable(String date){
 		
         //테이블에 데이터 추가하기
         //원본데이터를 건들지 않고 table의 매개변수인 model에 있는 데이터를 변경합니다
@@ -86,8 +84,35 @@ public class MainWindow {
         
         m = (DefaultTableModel)table.getModel();
         
+        if(m.getValueAt(0, 0).toString().matches("Empty"))
+        	m.removeRow(0);
+        
         //모델에 데이터 추가 , 1번째 출에 새로운 데이터를 추가합니다
-        m.insertRow(m.getRowCount(), new Object[]{date, version});
+        m.insertRow(m.getRowCount(), new Object[]{date});
+        
+		table.updateUI();
+		
+	}
+	
+	
+	
+	public void clearTable(){
+		
+        DefaultTableModel m =
+                new DefaultTableModel() {
+        	public boolean isCellEditable(int row, int column){
+        		return false;
+        	}
+        };
+        
+        m = (DefaultTableModel)table.getModel();
+        
+        int currTableRow = table.getRowCount();
+        for(int i = 0; i < currTableRow; i++)
+        	m.removeRow(0);
+        
+        m.insertRow(0, new String[]{"Empty"});
+        
         
 		table.updateUI();
 		
@@ -101,6 +126,10 @@ public class MainWindow {
 	
 	public JTextField getTxtDate(){
 		return txtDate;
+	}
+	
+	public JButton getBtnNew(){
+		return btnNew;
 	}
 	
 	

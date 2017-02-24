@@ -18,6 +18,8 @@ public class LogInProcess implements ActionListener {
 		view.getTxtPassWd().addActionListener(this);
 		view.getBtnEnter().addActionListener(this);
 		
+		view.show();
+		
 		isValidate = false;
 		
 	}
